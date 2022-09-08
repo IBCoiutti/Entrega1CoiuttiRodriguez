@@ -13,7 +13,7 @@ def pelicula(request):
     return HttpResponse(texto)
 
 def inicio(request):
-    return HttpResponse ("Inicio")
+    return render (request,"AppMovies/inicio.html")
 
 def peliculas(request):
     return HttpResponse ("Peliculas")
