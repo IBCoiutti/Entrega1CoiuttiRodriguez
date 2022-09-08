@@ -23,3 +23,7 @@ def series(request):
 
 def actores(request):
     return render (request,"AppMovies/actores.html")
+
+def formPelicula(request):
+    return render(request,"AppMovies/formulariopelicula.html")
+    
