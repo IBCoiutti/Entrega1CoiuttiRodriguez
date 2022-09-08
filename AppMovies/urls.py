@@ -5,7 +5,7 @@ from AppMovies.views import *
 
 
 urlpatterns = [
-    path('peliculas/', peliculas),
+    path('peliculas/', peliculas, name="peliculas"),
     path('inicio/', inicio, name="inicio"),
     path('actores/', actores, name="actores"),
     path('series/', series, name="series"),
