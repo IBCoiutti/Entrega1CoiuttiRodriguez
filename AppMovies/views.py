@@ -16,10 +16,10 @@ def inicio(request):
     return render (request,"AppMovies/inicio.html")
 
 def peliculas(request):
-    return HttpResponse ("Peliculas")
+    return render (request,"AppMovies/peliculas.html")
 
 def series(request):
-    return HttpResponse ("Series")
+    return render (request,"AppMovies/series.html")
 
 def actores(request):
-    return HttpResponse ("Actores")
+    return render (request,"AppMovies/actores.html")
