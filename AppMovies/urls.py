@@ -10,4 +10,5 @@ urlpatterns = [
     path('actores/', actores, name="actores"),
     path('series/', series, name="series"),
     path("", inicio),
+    path('formulariopelicula/', formPelicula, name="formulariopelicula"),
 ]

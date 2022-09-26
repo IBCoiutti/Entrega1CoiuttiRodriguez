@@ -1,8 +1,9 @@
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.http import HttpResponse
+from AppMovies.forms import PeliForm
 from AppMovies.models import Pelicula, Serie, Actores
-
+from AppMovies.forms import PeliForm
 
 # Create your views here.
 
@@ -27,3 +28,10 @@ def actores(request):
 def formPelicula(request):
     return render(request,"AppMovies/formulariopelicula.html")
     
+
+def peliFormulario(request):
+    if request.method=="POST":
+        pass
+    else:
+        formulario = PeliForm(request.POST)
+        return render (request,"AppMovies/pelisFormulario.html", {"formulario": formulario})

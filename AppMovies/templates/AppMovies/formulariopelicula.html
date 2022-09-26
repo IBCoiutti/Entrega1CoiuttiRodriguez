@@ -2,3 +2,14 @@
 
 
 {% load static %}
+
+{% block cambia %}
+
+<form action="{% url 'formulariopelicula' %}" method="POST" {% csrf_token %}
+    <table>
+        {{ formulario.as_table }}
+    </table>
+    <input type="submit" value="Enviar">
+</form>
+
+{% endblock %}

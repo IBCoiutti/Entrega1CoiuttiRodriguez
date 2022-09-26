@@ -31,6 +31,7 @@
                 </div>
             </div>
         </nav>
+        {% block cambia %}
         <!-- Header - set the background image for the header in the line below-->
         <header class="py-5 bg-image-full" style="background-image: url('https://www.cluses-montagnes-tourisme.com/wp-content/uploads/2021/03/Vid%C3%A9oth%C3%A8que-2-1600x900.jpg')">
             <div class="text-center my-5">
@@ -39,11 +40,13 @@
                 <p class="text-white-50 mb-0">TODA LA INFORMACION DE TUS PELICULAS FAVORITAS</p>
             </div>
         </header>
+        {% endblock %}
         <!-- Content section-->
         <section class="py-5">
             <div class="container my-5">
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
+                        {% block cambia1 %}
                         <h2>Podes ingresar las tuyas!!!</h2>
                         <!-- #comentado <p class="lead">A single, lightweight helper class allows you to add engaging, full width background images to sections of your page.</p>
                         <p class="mb-0">The universe is almost 14 billion years old, and, wow! Life had no problem starting here on Earth! I think it would be inexcusably egocentric of us to suggest that we're alone in the universe.</p>-->
@@ -51,6 +54,7 @@
                 </div>
             </div>
         </section>
+        {% endblock %}
         <!-- Image element - set the background image for the header in the line below-->
         <div class="py-5 bg-image-full" style="background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800')">
             <!-- Put anything you want here! The spacer below with inline CSS is just for demo purposes!-->
