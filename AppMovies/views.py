@@ -1,7 +1,7 @@
+from django.http.request import QueryDict
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.http import HttpResponse
-from AppMovies.forms import PeliForm
 from AppMovies.models import Pelicula, Serie, Actores
 from AppMovies.forms import PeliForm
 
@@ -25,13 +25,27 @@ def series(request):
 def actores(request):
     return render (request,"AppMovies/actores.html")
 
-def formPelicula(request):
-    return render(request,"AppMovies/formulariopelicula.html")
+"""def formPelicula(request):
+    return render(request,"AppMovies/formulariopelicula.html")"""
     
 
-def peliFormulario(request):
+def formPelicula(request):
     if request.method=="POST":
-        pass
+        Formulario1 = PeliForm(request.POST) #aquí mellega toda la información del html
+
+        print(Formulario1)
+
+        if Formulario1.is_valid:   #Si pasó la validación de Django
+
+            informacion = Formulario1.cleaned_data
+
+            peli = Pelicula (nombre=informacion['nombre'], director=informacion['director'], año=informacion['año'], genero=informacion['genero'])
+
+            peli.save()
+
+            return render(request, "AppMovies/inicio.html") #Vuelvo al inicio o a donde quieran
     else:
-        formulario = PeliForm(request.POST)
-        return render (request,"AppMovies/pelisFormulario.html", {"formulario": formulario})
+        
+        Formulario1 = PeliForm()
+
+    return render (request,"AppMovies/formulariopelicula.html", {"Formulario1": Formulario1})

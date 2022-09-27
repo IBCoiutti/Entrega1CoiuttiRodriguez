@@ -3,13 +3,26 @@
 
 {% load static %}
 
-{% block cambia %}
+{% block cambia2 %}
 
-<form action="{% url 'formulariopelicula' %}" method="POST" {% csrf_token %}
-    <table>
-        {{ formulario.as_table }}
-    </table>
-    <input type="submit" value="Enviar">
-</form>
+    <h1>Formulario - Agregar Pelicula</h1>
+    
+    {% if Formulario1.errors %}
+
+    <p style="color: red;"> Están mal los datos, revisar</p>
+
+    {% endif %}
+
+    <form action="" method="POST">{% csrf_token %}
+        
+        <table>
+
+            {{ Formulario1.as_table }}
+
+        </table>
+
+        <input type="submit", value="Enviar">
+
+    </form>
 
 {% endblock %}

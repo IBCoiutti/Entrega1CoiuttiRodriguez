@@ -14,23 +14,3 @@
 </header>
 {% endblock %}
 
-{% block cambia1 %}
-    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    {% if miFormulario.errors %}
-
-    <p style="color: red;"> Están mal los datos, revisar</p>
-
-    {% endif %}
-    <form action="" method="POST">{% csrf_token %}
-
-        <!-- Acá está la magia de Django-->
-        
-        <table>
-            {{ formulario.as_table }}
-        </table>
-
-        <input type="submit", value="Enviar">
-
-    </form>
-
-{% endblock %}
