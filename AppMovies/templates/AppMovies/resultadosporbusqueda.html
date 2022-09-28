@@ -1,0 +1,21 @@
+{% extends "AppMovies/index.html" %}
+
+
+{% load static %}
+
+{% block cambia2 %}
+
+    <p>Buscando Pelicula: {{nombre}}</p>
+    {% if pelicula %}
+
+    <ul>
+    {% for pelicula in pelicula %}
+        <li> {% pelicula.nombre %} </li>
+
+    {% endfor %}
+
+    </ul>
+
+    {% endif %}
+
+{% endblock %}

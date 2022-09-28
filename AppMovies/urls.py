@@ -11,4 +11,6 @@ urlpatterns = [
     path('series/', series, name="series"),
     path("", inicio),
     path('formulariopelicula/', formPelicula, name="formulariopelicula"),
+    path('buscarpelicula/', buscarPeli, name="buscarpelicula"),
+    path('buscar/', buscar),
 ]

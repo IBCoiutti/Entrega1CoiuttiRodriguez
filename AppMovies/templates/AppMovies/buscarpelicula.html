@@ -1,0 +1,16 @@
+{% extends "AppMovies/index.html" %}
+
+
+{% load static %}
+
+{% block cambia2 %}
+
+    <form action="/AppMovies/buscar/" method="GET">
+        
+        <input type="text" name="nombre" if="nombre">
+
+        <input type="submit", value="Bucar">
+
+    </form>
+
+{% endblock %}
