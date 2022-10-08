@@ -3,11 +3,18 @@
 
 {% load static %}
 
-{% block cambia2 %}
+{% block cambia %}
 
-    <form action="/AppMovies/buscar/" method="GET">
+<h1 class="mb-5"> Formulario de busqueda de peliculas</h1>
+
+{% endblock %}
+
+{% block cambia2 %}
+<h1> Formulario de busqueda de peliculas</h1>
+
+    <form action="{% url 'buscar' %}" method="GET">
         
-        <input type="text" name="nombre" if="nombre">
+        <input type="text" name="nombre" id="nombre">
 
         <input type="submit", value="Bucar">
 

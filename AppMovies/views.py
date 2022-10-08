@@ -50,23 +50,35 @@ def formPelicula(request):
 
     return render (request,"AppMovies/formulariopelicula.html", {"Formulario1": Formulario1})
 
+
+
+
 def buscarPeli(request):
 
     return render(request, "AppMovies/buscarpelicula.html")
 
+
+
+
 def buscar(request):
 
-    #respuesta = f"Buscar pelicula: {request.GET['nombre']}"
+    nombre = request.GET["nombre"]
 
-    if request.GET["nombre"]:
+    respuesta = f"Buscar pelicula: {nombre}"
 
-        nombre = request.GET['nombre']
-        pelicula = Pelicula.objects.filter(nombre__icontains=nombre)
+    return HttpResponse(respuesta)
 
-        return render(request, "AppMovies/resultadosbusqueda.html", {"nombre": nombre})
+    """if request.GET["nombre"]:
+
+        nombre = request.GET["nombre"]
+        pelicula = Pelicula.objects.all()   #filter(nombre__icontains=nombre)
+
+        return render(request, "AppMovies/resultadosporbusqueda.html", {"pelicula": pelicula, "nombre": nombre})
 
     else:
         respuesta = "No enviaste datos"
 
     
-    return HttpResponse(respuesta)
+    return HttpResponse(respuesta)"""
+
+
