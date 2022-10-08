@@ -11,8 +11,9 @@
 
 
 <ul> 
-    {% for titulo in titulos %}
-        <li>{{titulos.nombre}}</li>
+    {% for pelicula in titulos %}
+        <li>{{pelicula.nombre}}</li>
+        <li>{{pelicula.año}}</li>
         <br>
     {% endfor %}
 </ul>

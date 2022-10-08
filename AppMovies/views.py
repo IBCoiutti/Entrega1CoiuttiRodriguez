@@ -7,11 +7,6 @@ from AppMovies.forms import PeliForm
 
 # Create your views here.
 
-def pelicula(request):
-    pelicula=Pelicula(nombre="star wars", director="George Lucas", año=1977, genero="ciencia ficcion")
-    pelicula.save()
-    texto=f"pelicula añadida:{pelicula.nombre}"
-    return HttpResponse(texto)
 
 def inicio(request):
     return render (request,"AppMovies/inicio.html")
@@ -25,9 +20,6 @@ def series(request):
 def actores(request):
     return render (request,"AppMovies/actores.html")
 
-"""def formPelicula(request):
-    return render(request,"AppMovies/formulariopelicula.html")"""
-    
 
 def formPelicula(request):
     if request.method=="POST":
@@ -61,13 +53,19 @@ def buscarPeli(request):
 
 def buscar(request):
 
+    request.GET["nombre"]
     titulo = request.GET["nombre"]
-
     titulos = Pelicula.objects.filter(nombre=titulo)
-
     return render(request,"AppMovies/resultadosporbusqueda.html", {"titulos":titulos})
 
     
+
+
+
+
+    
+
+
 
 
 
