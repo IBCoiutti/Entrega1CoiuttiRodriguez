@@ -5,20 +5,22 @@
 
 {% block cambia2 %}
 
-<h1> Busqueda de Peliculas</h1>
+<h1> Todas las Peliculas</h1>
 
-{% if titulos %}
+{% if todas %}
 
 <ul> 
-    {% for pelicula in titulos %}
+    {% for pelicula in todas %}
         <li>{{pelicula.nombre}}</li>
+        <li>{{pelicula.director}}</li>
         <li>{{pelicula.año}}</li>
+        <li>{{pelicula.genero}}</li>
         <br>
     {% endfor %}
 </ul>
 
 {% else %}
-<p>No se encontraron peliculas con ese titulo</p>
+<p>No hay peliculas aún</p>
 
 {% endif %}
 

@@ -52,11 +52,20 @@ def buscarPeli(request):
 
 
 def buscar(request):
+    if request.GET["nombre"]:
+        request.GET["nombre"]
+        titulo = request.GET["nombre"]
+        titulos = Pelicula.objects.filter(nombre=titulo)
+        return render(request,"AppMovies/resultadosporbusqueda.html", {"titulos":titulos})
+    else:
+        return render(request, "AppMovies/buscarpelicula.html", {"mensaje":"Ingresar un titulo"})
 
-    request.GET["nombre"]
-    titulo = request.GET["nombre"]
-    titulos = Pelicula.objects.filter(nombre=titulo)
-    return render(request,"AppMovies/resultadosporbusqueda.html", {"titulos":titulos})
+def pelisTodas(request):
+    todas=Pelicula.objects.all()
+    return render(request, "AppMovies/todaslaspeliculas.html", {"todas":todas})
+    
+
+
 
     
 

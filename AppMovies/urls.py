@@ -13,4 +13,6 @@ urlpatterns = [
     path('formulariopelicula/', formPelicula, name="formulariopelicula"),
     path('buscarpelicula/', buscarPeli, name="buscarpelicula"),
     path('buscar/', buscar, name="buscar"),
+    path('todaslaspeliculas/', pelisTodas, name="todaslaspeliculas"),
 ]
+
