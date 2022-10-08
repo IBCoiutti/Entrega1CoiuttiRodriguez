@@ -59,26 +59,15 @@ def buscarPeli(request):
 
 
 
-
 def buscar(request):
 
-    nombre = request.GET["nombre"]
+    titulo = request.GET["nombre"]
 
-    respuesta = f"Buscar pelicula: {nombre}"
+    titulos = Pelicula.objects.filter(nombre=titulo)
 
-    return HttpResponse(respuesta)
-
-    """if request.GET["nombre"]:
-
-        nombre = request.GET["nombre"]
-        pelicula = Pelicula.objects.all()   #filter(nombre__icontains=nombre)
-
-        return render(request, "AppMovies/resultadosporbusqueda.html", {"pelicula": pelicula, "nombre": nombre})
-
-    else:
-        respuesta = "No enviaste datos"
+    return render(request,"AppMovies/resultadosporbusqueda.html", {"titulos":titulos})
 
     
-    return HttpResponse(respuesta)"""
+
 
 

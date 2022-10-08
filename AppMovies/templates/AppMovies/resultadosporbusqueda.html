@@ -5,17 +5,23 @@
 
 {% block cambia2 %}
 
-    <p>Buscando Pelicula: {{nombre}}</p>
-    {% if pelicula %}
+<h1> Busqueda de Peliculas</h1>
 
-    <ul>
-    {% for pelicula in pelicula %}
-        <li> {% pelicula.nombre %} </li>
+{% if titulos %}
 
+
+<ul> 
+    {% for titulo in titulos %}
+        <li>{{titulos.nombre}}</li>
+        <br>
     {% endfor %}
+</ul>
 
-    </ul>
+{% else %}
 
-    {% endif %}
+<p>No se encontraron peliculas con ese titulo</p>
+
+{% endif %}
 
 {% endblock %}
+
