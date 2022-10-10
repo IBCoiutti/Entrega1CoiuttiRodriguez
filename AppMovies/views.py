@@ -3,9 +3,9 @@ from django.http.request import QueryDict
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.http import HttpResponse
+from AppMovies.forms import PeliForm, UserRegisterForm
 from django.urls import is_valid_path
 from AppMovies.models import Pelicula, Serie, Actores
-from AppMovies.forms import PeliForm
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 
@@ -110,16 +110,17 @@ def login_request(request):
 
 def register(request):
     if request.method=="POST":
-        form=UserCreationForm(request.POST)
+        form=UserRegisterForm(request.POST)
         if form.is_valid():
             username=form.cleaned_data.get('username')
             form.save()
-            return render(request, "AppMovies/login.html",{'mensaje':f"Usuario {username} creado correctamente"})
+            return render(request, "AppMovies/inicio.html",{'mensaje':f"Usuario {username} creado correctamente"})
         else:
             return render (request, "AppMovies/register.html",{"Formulario1":form, 'mensaje': "Datos incorrectos"})
     else:
-        form=UserCreationForm()
+        form=UserRegisterForm()
         return render (request, "AppMovies/register.html",{"Formulario1":form})
+
 
 
 
