@@ -20,7 +20,6 @@ def series(request):
 def actores(request):
     return render (request,"AppMovies/actores.html")
 
-
 def formPelicula(request):
     if request.method=="POST":
         Formulario1 = PeliForm(request.POST) #aquí mellega toda la información del html
@@ -28,28 +27,21 @@ def formPelicula(request):
         print(Formulario1)
 
         if Formulario1.is_valid:   #Si pasó la validación de Django
-
             informacion = Formulario1.cleaned_data
-
             peli = Pelicula (nombre=informacion['nombre'], director=informacion['director'], año=informacion['año'], genero=informacion['genero'])
-
             peli.save()
+            todas=Pelicula.objects.all()
+            return render(request, "AppMovies/todaslaspeliculas.html", {"todas":todas})
 
-            return render(request, "AppMovies/inicio.html") #Vuelvo al inicio o a donde quieran
     else:
         
         Formulario1 = PeliForm()
 
     return render (request,"AppMovies/formulariopelicula.html", {"Formulario1": Formulario1})
 
-
-
-
 def buscarPeli(request):
 
     return render(request, "AppMovies/buscarpelicula.html")
-
-
 
 def buscar(request):
     if request.GET["nombre"]:
@@ -63,6 +55,15 @@ def buscar(request):
 def pelisTodas(request):
     todas=Pelicula.objects.all()
     return render(request, "AppMovies/todaslaspeliculas.html", {"todas":todas})
+
+def eliminarPeli(request, id):
+    peli=Pelicula.objects.get(id=id)
+    peli.delete()
+    todas=Pelicula.objects.all()
+    return render(request, "AppMovies/todaslaspeliculas.html", {"todas": todas})
+
+
+
     
 
 

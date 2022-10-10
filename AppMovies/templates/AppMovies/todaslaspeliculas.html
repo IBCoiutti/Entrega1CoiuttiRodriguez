@@ -3,6 +3,20 @@
 
 {% load static %}
 
+{% block cambia1 %}
+<section class="py-5">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+
+                <h2>¡Me encanta el olor del napalm por la mañana!</h2>
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
 {% block cambia2 %}
 
 <h1> Todas las Peliculas</h1>
@@ -15,6 +29,7 @@
         <li>{{pelicula.director}}</li>
         <li>{{pelicula.año}}</li>
         <li>{{pelicula.genero}}</li>
+        <li class="nav-item" color="#f44336"><a class="nav-link active" aria-current="page" href="{% url 'eliminarPeli' pelicula.id %}">Eliminar</a></li>
         <br>
     {% endfor %}
 </ul>
