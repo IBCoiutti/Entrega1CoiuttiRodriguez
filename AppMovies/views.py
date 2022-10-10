@@ -6,6 +6,9 @@ from django.http import HttpResponse
 from django.urls import is_valid_path
 from AppMovies.models import Pelicula, Serie, Actores
 from AppMovies.forms import PeliForm
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+
 
 # Create your views here.
 
@@ -81,7 +84,29 @@ def editarPeli(request, id):
         form= PeliForm(initial={"nombre": peli.nombre, "director": peli.director, "año": peli.año, "genero": peli.genero})
         return render(request, "AppMovies/editarpelicula.html", {"Formulario1": form, "peli":peli})
 
-    
+#Login
+
+def login_request(request):
+    if request.method=="POST":
+        form=AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            usu=request.POST["username"]
+            clave=request.POST["password"]
+
+            usuario = authenticate(username=usu, password=clave)
+            if usuario is not None:
+                login(request, usuario)
+                return render(request, "AppMovies/inicio.html", {'mensaje':f"Bienvenido {usuario}!"} )
+            
+            else:
+                return render (request, "AppMovies/login.html",{"Formulario1":form, 'mensaje': "Usuario o contraseña incorrectos"})
+        else:
+            return render (request, "AppMovies/login.html",{"Formulario1":form, 'mensaje': "Usuario y/o contraseña incorrectos"})
+
+
+    else:
+        form=AuthenticationForm()
+        return render (request, "AppMovies/login.html",{"Formulario1":form})
 
 
 
@@ -91,8 +116,6 @@ def editarPeli(request, id):
 
 
     
-
-
 
 
 

@@ -9,11 +9,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Inicio</title>
+<title>Ingresar</title>
 {% endblock %}
 
-{% block cambia1 %}
+{% block cambia2 %}
 
-{{ mensaje }}
+<h1>Ingresar</h1>
+
+<form action="{% url 'login' %}" method="POST">{% csrf_token %}
+    <table>
+        {{ Formulario1.as_table }}
+    </table>
+    <input type="submit", value="Iniciar Sesion">
+</form>
+
+<h1>{{ mensaje }}</h1>
 
 {% endblock %}

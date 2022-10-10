@@ -16,5 +16,9 @@ urlpatterns = [
     path('todaslaspeliculas/', pelisTodas, name="todaslaspeliculas"),
     path('eliminarpeli/<id>', eliminarPeli, name="eliminarPeli"),
     path('editarpelicula/<id>', editarPeli, name="editarPeli"),
+
+
+    #loggin register logout
+    path('login/', login_request, name="login"),
 ]
 
