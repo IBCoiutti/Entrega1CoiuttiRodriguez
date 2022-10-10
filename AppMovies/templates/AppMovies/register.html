@@ -1,0 +1,28 @@
+{% extends "AppMovies/index.html" %}
+
+
+{% load static %}
+
+
+{% block titulo %}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Crear Usuario</title>
+{% endblock %}
+
+{% block cambia2 %}
+
+<h1>Crear Usuario</h1>
+
+<form action="{% url 'register' %}" method="POST">{% csrf_token %}
+    <table>
+        {{ Formulario1.as_table }}
+    </table>
+    <input type="submit", value="Crear Usuario">
+</form>
+
+<h1>{{ mensaje }}</h1>
+
+{% endblock %}

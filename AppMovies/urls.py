@@ -20,5 +20,6 @@ urlpatterns = [
 
     #loggin register logout
     path('login/', login_request, name="login"),
+    path('register/', register, name="register"),
 ]
 
