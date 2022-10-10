@@ -1,7 +1,9 @@
+import re
 from django.http.request import QueryDict
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.urls import is_valid_path
 from AppMovies.models import Pelicula, Serie, Actores
 from AppMovies.forms import PeliForm
 
@@ -62,7 +64,22 @@ def eliminarPeli(request, id):
     todas=Pelicula.objects.all()
     return render(request, "AppMovies/todaslaspeliculas.html", {"todas": todas})
 
-
+def editarPeli(request, id):
+    peli=Pelicula.objects.get(id=id)
+    if request.method=="POST":
+        form=PeliForm(request.POST)
+        if form.is_valid():
+            info=form.cleaned_data
+            peli.nombre=info["nombre"]
+            peli.director=info["director"]
+            peli.año=info["año"]
+            peli.genero=info["genero"]
+            peli.save()
+            todas=Pelicula.objects.all()
+            return render(request, "AppMovies/todaslaspeliculas.html", {"todas": todas})
+    else:
+        form= PeliForm(initial={"nombre": peli.nombre, "director": peli.director, "año": peli.año, "genero": peli.genero})
+        return render(request, "AppMovies/editarpelicula.html", {"Formulario1": form, "peli":peli})
 
     
 

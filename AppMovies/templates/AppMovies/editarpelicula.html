@@ -1,0 +1,28 @@
+{% extends "AppMovies/index.html" %}
+
+
+{% load static %}
+
+{% block cambia2 %}
+
+    <h1>Editando pelicula: {{ peli }}</h1>
+    
+    {% if Formulario1.errors %}
+
+    <p style="color: red;"> Están mal los datos, revisar</p>
+
+    {% endif %}
+
+    <form action="{% url 'editarPeli' peli.id %}" method="POST">{% csrf_token %}
+        
+        <table>
+
+            {{ Formulario1.as_table }}
+
+        </table>
+
+        <input type="submit", value="Guardar">
+
+    </form>
+
+{% endblock %}

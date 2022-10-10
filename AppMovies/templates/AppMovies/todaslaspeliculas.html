@@ -29,7 +29,9 @@
         <li>{{pelicula.director}}</li>
         <li>{{pelicula.año}}</li>
         <li>{{pelicula.genero}}</li>
-        <li class="nav-item" color="#f44336"><a class="nav-link active" aria-current="page" href="{% url 'eliminarPeli' pelicula.id %}">Eliminar</a></li>
+        <a href="{% url 'editarPeli' pelicula.id %}" class="btn btn-primary" type="button" >Editar</a>
+        <!--<li class="nav-item" color="#f44336"><a class="nav-link active" aria-current="page" href="{% url 'eliminarPeli' pelicula.id %}">Eliminar</a></li> -->
+        <a href="{% url 'eliminarPeli' pelicula.id %}" class="btn btn-danger" type="button" >Eliminar</a> 
         <br>
     {% endfor %}
 </ul>

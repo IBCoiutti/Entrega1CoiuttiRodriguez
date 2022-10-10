@@ -15,5 +15,6 @@ urlpatterns = [
     path('buscar/', buscar, name="buscar"),
     path('todaslaspeliculas/', pelisTodas, name="todaslaspeliculas"),
     path('eliminarpeli/<id>', eliminarPeli, name="eliminarPeli"),
+    path('editarpelicula/<id>', editarPeli, name="editarPeli"),
 ]
 
