@@ -12,6 +12,7 @@
 <title>Ingresar</title>
 {% endblock %}
 
+
 {% block cambia2 %}
 
 <h1>Ingresar</h1>
@@ -21,6 +22,11 @@
         {{ Formulario1.as_table }}
     </table>
     <input type="submit", value="Iniciar Sesion">
+    <br>
+    <br>
+    <h5>Si no estas registrado...</h5>
+    
+    <a class="navbar-brand" href="{% url 'register' %}">Registrate aca!</a>
 </form>
 
 <h1>{{ mensaje }}</h1>
