@@ -18,7 +18,8 @@ class UserRegisterForm(UserCreationForm):
     class meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-        help_texts = {k:"" for k in fields}
+        #help_texts = {k:"" for k in fields} esto lo hice desde el html por que me quedaba algo siempre
+        help_texts = {'username': None,'email': None,'password1': None, 'password2': None}
 
 
 

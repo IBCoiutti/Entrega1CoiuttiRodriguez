@@ -8,6 +8,9 @@ from django.urls import is_valid_path
 from AppMovies.models import Pelicula, Serie, Actores
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+
+#from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
@@ -24,7 +27,8 @@ def series(request):
 
 def actores(request):
     return render (request,"AppMovies/actores.html")
-
+    
+@login_required
 def formPelicula(request):
     if request.method=="POST":
         Formulario1 = PeliForm(request.POST) #aquí mellega toda la información del html
@@ -57,16 +61,19 @@ def buscar(request):
     else:
         return render(request, "AppMovies/buscarpelicula.html", {"mensaje":"Ingresar un titulo"})
 
+@login_required
 def pelisTodas(request):
     todas=Pelicula.objects.all()
     return render(request, "AppMovies/todaslaspeliculas.html", {"todas":todas})
 
+@login_required
 def eliminarPeli(request, id):
     peli=Pelicula.objects.get(id=id)
     peli.delete()
     todas=Pelicula.objects.all()
     return render(request, "AppMovies/todaslaspeliculas.html", {"todas": todas})
 
+@login_required
 def editarPeli(request, id):
     peli=Pelicula.objects.get(id=id)
     if request.method=="POST":
@@ -120,6 +127,9 @@ def register(request):
     else:
         form=UserRegisterForm()
         return render (request, "AppMovies/register.html",{"Formulario1":form})
+
+def logout(request):
+    return render (request, "AppMovies/logout.html")
 
 
 
