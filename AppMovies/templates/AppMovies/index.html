@@ -21,6 +21,7 @@
             <div class="container">
                 {% if user.is_authenticated %}
                 <a class="navbar-brand" href="{% url 'logout' %}">Salir</a>
+                <a class="navbar-brand" href="{% url 'editarusuario' %}">Editar Usuario</a>
                 {% else %}
                 <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
                 <a class="navbar-brand" href="{% url 'login' %}">Ingresar</a>

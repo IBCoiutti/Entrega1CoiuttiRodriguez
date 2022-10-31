@@ -1,0 +1,32 @@
+{% extends "AppMovies/index.html" %}
+
+
+{% load static %}
+
+
+{% block titulo %}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Editar perfil</title>
+{% endblock %}
+
+{% block cambia %}
+<h1>Editar perfil de {{ usuario }}</h1>
+<h1> {{ mensaje }} </h1>
+
+<form action="{% url 'editarusuario' %}" method="POST"> {% csrf_token %}
+    <style>
+        .helptext{visibility: hidden;}
+    </style>
+
+
+    <table>
+        {{ formulario.as_table }}
+    </table>
+    <input type="submit" value="guardar">
+</form>
+    
+{% endblock %}
+

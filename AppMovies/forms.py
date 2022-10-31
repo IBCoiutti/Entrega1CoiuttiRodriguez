@@ -22,4 +22,14 @@ class UserRegisterForm(UserCreationForm):
         help_texts = {'username': None,'email': None,'password1': None, 'password2': None}
 
 
+class UserEditForm(UserCreationForm):
+    email = forms.EmailField()
+    password1= forms.CharField(label="Ingrese Contraseña", widget=forms.PasswordInput)
+    password2= forms.CharField(label="Confirme Contraseña", widget=forms.PasswordInput)
 
+    class meta:
+        model = User
+        fields = ['email', 'password1', 'password2']
+        #help_texts = {k:"" for k in fields} esto lo hice desde el html por que me quedaba algo siempre
+        help_texts = {'email': None,'password1': None, 'password2': None}
+#

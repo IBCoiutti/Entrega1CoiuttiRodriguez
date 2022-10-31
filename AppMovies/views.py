@@ -3,7 +3,7 @@ from django.http.request import QueryDict
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.http import HttpResponse
-from AppMovies.forms import PeliForm, UserRegisterForm
+from AppMovies.forms import PeliForm, UserEditForm, UserRegisterForm
 from django.urls import is_valid_path
 from AppMovies.models import Pelicula, Serie, Actores
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -131,17 +131,25 @@ def register(request):
 def logout(request):
     return render (request, "AppMovies/logout.html")
 
+@login_required
+def editarUsuario(request):
+    usuario=request.user
+    if request.method == "POST":
+        form=UserEditForm(request.POST)
+        if form.is_valid():
+            info=form.cleaned_data
+            usuario.email=info["email"]
+            usuario.password1=info["password1"]
+            usuario.password2=info["password2"]
+            usuario.save()
+            return render(request, "AppMovies/inicio.html",{'mensaje':f"Usuario {usuario} actualizado correctamente"})
+        else:
+            return render(request, "AppMovies/editarusuario.html",{"formulario":form, "usuario": usuario, "mensaje":"Datos erroneos"})
 
-
-
-
-
-    
-
-
-
-
-    
+    else:
+        form= UserEditForm(instance=usuario)
+    return render(request, "AppMovies/editarusuario.html",{"formulario":form, "usuario": usuario})
+        
 
 
 
