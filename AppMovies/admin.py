@@ -7,3 +7,4 @@ from .models import *
 admin.site.register(Pelicula)
 admin.site.register(Serie)
 admin.site.register(Actores)
+admin.site.register(Avatar)

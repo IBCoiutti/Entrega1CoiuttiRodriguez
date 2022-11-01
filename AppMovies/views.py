@@ -3,9 +3,9 @@ from django.http.request import QueryDict
 from http.client import HTTPResponse
 from django.shortcuts import render
 from django.http import HttpResponse
-from AppMovies.forms import PeliForm, UserEditForm, UserRegisterForm
+from AppMovies.forms import PeliForm, UserEditForm, UserRegisterForm, AvatarForm
 from django.urls import is_valid_path
-from AppMovies.models import Pelicula, Serie, Actores
+from AppMovies.models import Avatar, Pelicula, Serie, Actores
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -17,16 +17,16 @@ from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
-    return render (request,"AppMovies/inicio.html")
+    return render (request,"AppMovies/inicio.html", {"avatar": obtenerAvatar(request)})
 
 def peliculas(request):
-    return render (request,"AppMovies/peliculas.html")
+    return render (request,"AppMovies/peliculas.html", {"avatar": obtenerAvatar(request)})
 
 def series(request):
-    return render (request,"AppMovies/series.html")
+    return render (request,"AppMovies/series.html", {"avatar": obtenerAvatar(request)})
 
 def actores(request):
-    return render (request,"AppMovies/actores.html")
+    return render (request,"AppMovies/actores.html", {"avatar": obtenerAvatar(request)})
     
 @login_required
 def formPelicula(request):
@@ -141,6 +141,8 @@ def editarUsuario(request):
             usuario.email=info["email"]
             usuario.password1=info["password1"]
             usuario.password2=info["password2"]
+            usuario.first_name=info["first_name"]
+            usuario.last_name=info["last_name"]
             usuario.save()
             return render(request, "AppMovies/inicio.html",{'mensaje':f"Usuario {usuario} actualizado correctamente"})
         else:
@@ -151,5 +153,31 @@ def editarUsuario(request):
     return render(request, "AppMovies/editarusuario.html",{"formulario":form, "usuario": usuario})
         
 
+@login_required
+def agregarAvatar(request):
+    if request.method=='POST':
+        formulario=AvatarForm(request.POST, request.FILES)
+        if formulario.is_valid():
+            avatarViejo=Avatar.objects.filter(user=request.user)
+            if(len(avatarViejo)>0):
+                avatarViejo[0].delete()
+            avatar=Avatar(user=request.user, imagen=formulario.cleaned_data['imagen'])
+            avatar.save()
+            return render(request, 'AppMovies/inicio.html', {'usuario':request.user, 'mensaje':'AVATAR AGREGADO EXITOSAMENTE', "avatar": avatar.imagen.url})
+        else:
+            return render(request, 'AppMovies/agregaravatar.html', {'formulario':formulario, 'mensaje':'FORMULARIO INVALIDO'})
+        
+    else:
+        formulario=AvatarForm()
+        return render(request, "AppMovies/agregaravatar.html", {"formulario":formulario, "usuario":request.user, "avatar": obtenerAvatar(request)})
 
 
+
+
+def obtenerAvatar(request):
+    lista=Avatar.objects.filter(user=request.user)
+    if len(lista)!=0:
+        imagen=lista[0].imagen.url
+    else:
+        imagen="/media/avatares/avatarpordefecto.png"
+    return imagen

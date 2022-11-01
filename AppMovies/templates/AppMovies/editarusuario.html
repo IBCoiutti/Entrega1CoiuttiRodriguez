@@ -13,15 +13,13 @@
 {% endblock %}
 
 {% block cambia %}
-<h1>Editar perfil de {{ usuario }}</h1>
-<h1> {{ mensaje }} </h1>
+<h1>Editando perfil de {{ usuario }}</h1>
+<h3> {{ mensaje }} </h3>
 
 <form action="{% url 'editarusuario' %}" method="POST"> {% csrf_token %}
     <style>
         .helptext{visibility: hidden;}
     </style>
-
-
     <table>
         {{ formulario.as_table }}
     </table>

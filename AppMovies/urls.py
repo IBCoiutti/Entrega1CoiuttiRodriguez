@@ -25,5 +25,6 @@ urlpatterns = [
     path('register/', register, name="register"),
     path('logout/', LogoutView.as_view(template_name='AppMovies/logout.html'), name='logout'),
     path('editarusuario/', editarUsuario, name="editarusuario"),
+    path('agregaravatar/', agregarAvatar, name='agregaravatar'),
 ]
 
