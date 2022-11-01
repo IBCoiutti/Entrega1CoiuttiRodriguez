@@ -1,4 +1,5 @@
-import re
+from ast import IsNot
+from queue import Empty
 from django.http.request import QueryDict
 from http.client import HTTPResponse
 from django.shortcuts import render
@@ -17,7 +18,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
-    return render (request,"AppMovies/inicio.html", {"avatar": obtenerAvatar(request)})
+    return render (request,"AppMovies/inicio.html")
 
 def peliculas(request):
     return render (request,"AppMovies/peliculas.html", {"avatar": obtenerAvatar(request)})
@@ -40,13 +41,13 @@ def formPelicula(request):
             peli = Pelicula (nombre=informacion['nombre'], director=informacion['director'], año=informacion['año'], genero=informacion['genero'])
             peli.save()
             todas=Pelicula.objects.all()
-            return render(request, "AppMovies/todaslaspeliculas.html", {"todas":todas})
+            return render(request, "AppMovies/todaslaspeliculas.html", {"todas":todas, "avatar": obtenerAvatar(request)})
 
     else:
         
         Formulario1 = PeliForm()
 
-    return render (request,"AppMovies/formulariopelicula.html", {"Formulario1": Formulario1})
+    return render (request,"AppMovies/formulariopelicula.html", {"Formulario1": Formulario1, "avatar": obtenerAvatar(request)})
 
 def buscarPeli(request):
 
@@ -57,21 +58,21 @@ def buscar(request):
         request.GET["nombre"]
         titulo = request.GET["nombre"]
         titulos = Pelicula.objects.filter(nombre=titulo)
-        return render(request,"AppMovies/resultadosporbusqueda.html", {"titulos":titulos})
+        return render(request,"AppMovies/resultadosporbusqueda.html", {"titulos":titulos, "avatar": obtenerAvatar(request)})
     else:
-        return render(request, "AppMovies/buscarpelicula.html", {"mensaje":"Ingresar un titulo"})
+        return render(request, "AppMovies/buscarpelicula.html", {"mensaje":"Ingresar un titulo", "avatar": obtenerAvatar(request)})
 
 @login_required
 def pelisTodas(request):
     todas=Pelicula.objects.all()
-    return render(request, "AppMovies/todaslaspeliculas.html", {"todas":todas})
+    return render(request, "AppMovies/todaslaspeliculas.html", {"todas":todas, "avatar": obtenerAvatar(request)})
 
 @login_required
 def eliminarPeli(request, id):
     peli=Pelicula.objects.get(id=id)
     peli.delete()
     todas=Pelicula.objects.all()
-    return render(request, "AppMovies/todaslaspeliculas.html", {"todas": todas})
+    return render(request, "AppMovies/todaslaspeliculas.html", {"todas": todas, "avatar": obtenerAvatar(request)})
 
 @login_required
 def editarPeli(request, id):
@@ -86,10 +87,10 @@ def editarPeli(request, id):
             peli.genero=info["genero"]
             peli.save()
             todas=Pelicula.objects.all()
-            return render(request, "AppMovies/todaslaspeliculas.html", {"todas": todas})
+            return render(request, "AppMovies/todaslaspeliculas.html", {"todas": todas, "avatar": obtenerAvatar(request)})
     else:
         form= PeliForm(initial={"nombre": peli.nombre, "director": peli.director, "año": peli.año, "genero": peli.genero})
-        return render(request, "AppMovies/editarpelicula.html", {"Formulario1": form, "peli":peli})
+        return render(request, "AppMovies/editarpelicula.html", {"Formulario1": form, "peli":peli, "avatar": obtenerAvatar(request)})
 
 #Login
 
@@ -103,7 +104,7 @@ def login_request(request):
             usuario = authenticate(username=usu, password=clave)
             if usuario is not None:
                 login(request, usuario)
-                return render(request, "AppMovies/inicio.html", {'mensaje':f"Bienvenido {usuario}!"} )
+                return render(request, "AppMovies/inicio.html", {'mensaje':f"Bienvenido {usuario}!", "avatar": obtenerAvatar(request)})
             
             else:
                 return render (request, "AppMovies/login.html",{"Formulario1":form, 'mensaje': "Usuario o contraseña incorrectos"})
@@ -144,13 +145,13 @@ def editarUsuario(request):
             usuario.first_name=info["first_name"]
             usuario.last_name=info["last_name"]
             usuario.save()
-            return render(request, "AppMovies/inicio.html",{'mensaje':f"Usuario {usuario} actualizado correctamente"})
+            return render(request, "AppMovies/inicio.html",{'mensaje':f"Usuario {usuario} actualizado correctamente", "avatar": obtenerAvatar(request)})
         else:
-            return render(request, "AppMovies/editarusuario.html",{"formulario":form, "usuario": usuario, "mensaje":"Datos erroneos"})
+            return render(request, "AppMovies/editarusuario.html",{"formulario":form, "usuario": usuario, "mensaje":"Datos erroneos", "avatar": obtenerAvatar(request)})
 
     else:
         form= UserEditForm(instance=usuario)
-    return render(request, "AppMovies/editarusuario.html",{"formulario":form, "usuario": usuario})
+    return render(request, "AppMovies/editarusuario.html",{"formulario":form, "usuario": usuario, "avatar": obtenerAvatar(request)})
         
 
 @login_required
@@ -172,12 +173,10 @@ def agregarAvatar(request):
         return render(request, "AppMovies/agregaravatar.html", {"formulario":formulario, "usuario":request.user, "avatar": obtenerAvatar(request)})
 
 
-
-
 def obtenerAvatar(request):
     lista=Avatar.objects.filter(user=request.user)
     if len(lista)!=0:
         imagen=lista[0].imagen.url
     else:
-        imagen="/media/avatares/avatarpordefecto.png"
+        imagen="/media/avatares/avatardefault.png"
     return imagen

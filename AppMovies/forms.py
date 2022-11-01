@@ -1,5 +1,3 @@
-from dataclasses import field, fields
-from socket import fromshare
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -31,7 +29,7 @@ class UserEditForm(UserCreationForm):
 
     class meta:
         model = User
-        fields = ['email', 'password1', 'password2', 'first_name', 'last_name'] #borré el username y no deja de mostrarmelo.
+        fields = ['email', 'password1', 'password2', 'first_name', 'last_name'] #borré el username y lo sigue mostrando...
         #help_texts = {k:"" for k in fields} esto lo hice desde el html por que me quedaba algo siempre
         help_texts = {k:"" for k in fields}
 
